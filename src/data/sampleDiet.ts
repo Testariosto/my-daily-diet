@@ -1,98 +1,548 @@
 import { DayPlan, FridgeItem } from '@/types/diet';
 
 export const sampleWeekPlan: DayPlan[] = [
+  // Lunedì
   {
     id: '1',
     date: '2026-01-05',
     meals: [
       {
-        id: 'm1',
+        id: 'lun-col',
         type: 'colazione',
         confirmed: false,
         recipes: [
           {
-            id: 'r1',
-            name: 'Porridge con frutti di bosco',
+            id: 'r-lun-col',
+            name: 'Wasa con Philadelphia e avocado',
             ingredients: [
-              { id: 'i1', name: 'Fiocchi d\'avena', quantity: 50, unit: 'g' },
-              { id: 'i2', name: 'Latte di mandorla', quantity: 200, unit: 'ml' },
-              { id: 'i3', name: 'Mirtilli', quantity: 50, unit: 'g' },
-              { id: 'i4', name: 'Miele', quantity: 10, unit: 'g' },
-            ],
-            prepTime: 10,
-          },
-          {
-            id: 'r2',
-            name: 'Yogurt greco con granola',
-            ingredients: [
-              { id: 'i5', name: 'Yogurt greco', quantity: 150, unit: 'g' },
-              { id: 'i6', name: 'Granola', quantity: 40, unit: 'g' },
-              { id: 'i7', name: 'Banana', quantity: 1, unit: 'pz' },
+              { id: 'i1', name: 'Wasa', quantity: 40, unit: 'g' },
+              { id: 'i2', name: 'Philadelphia', quantity: 30, unit: 'g' },
+              { id: 'i3', name: 'Avocado', quantity: 40, unit: 'g' },
             ],
             prepTime: 5,
           },
         ],
       },
       {
-        id: 'm2',
+        id: 'lun-spu',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-lun-spu',
+            name: 'Wasa con cioccolato fondente',
+            ingredients: [
+              { id: 'i4', name: 'Wasa', quantity: 20, unit: 'g' },
+              { id: 'i5', name: 'Cioccolato fondente', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'lun-pra',
         type: 'pranzo',
         confirmed: false,
         recipes: [
           {
-            id: 'r3',
-            name: 'Insalata di quinoa con verdure',
+            id: 'r-lun-pra',
+            name: 'Riso basmati con tonno e verdure',
             ingredients: [
-              { id: 'i8', name: 'Quinoa', quantity: 80, unit: 'g' },
-              { id: 'i9', name: 'Pomodorini', quantity: 100, unit: 'g' },
-              { id: 'i10', name: 'Cetriolo', quantity: 100, unit: 'g' },
-              { id: 'i11', name: 'Feta', quantity: 50, unit: 'g' },
-              { id: 'i12', name: 'Olio EVO', quantity: 15, unit: 'ml' },
+              { id: 'i6', name: 'Riso basmati', quantity: 80, unit: 'g' },
+              { id: 'i7', name: 'Tonno', quantity: 120, unit: 'g' },
+              { id: 'i8', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i9', name: 'Olio EVO', quantity: 10, unit: 'g' },
             ],
             prepTime: 25,
           },
+        ],
+      },
+      {
+        id: 'lun-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
           {
-            id: 'r4',
-            name: 'Poke bowl al salmone',
+            id: 'r-lun-mer',
+            name: 'Frutta con mandorle',
             ingredients: [
-              { id: 'i13', name: 'Riso basmati', quantity: 80, unit: 'g' },
-              { id: 'i14', name: 'Salmone fresco', quantity: 120, unit: 'g' },
-              { id: 'i15', name: 'Avocado', quantity: 50, unit: 'g' },
-              { id: 'i16', name: 'Edamame', quantity: 40, unit: 'g' },
-              { id: 'i17', name: 'Salsa di soia', quantity: 15, unit: 'ml' },
+              { id: 'i10', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i11', name: 'Mandorle', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'lun-cen',
+        type: 'cena',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-lun-cen',
+            name: 'Frese con uova e verdure',
+            ingredients: [
+              { id: 'i12', name: 'Frese', quantity: 30, unit: 'g' },
+              { id: 'i13', name: 'Uova', quantity: 110, unit: 'g' },
+              { id: 'i14', name: 'Verdure', quantity: 250, unit: 'g' },
+              { id: 'i15', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 20,
+          },
+        ],
+      },
+    ],
+  },
+  // Martedì
+  {
+    id: '2',
+    date: '2026-01-06',
+    meals: [
+      {
+        id: 'mar-col',
+        type: 'colazione',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mar-col',
+            name: 'Wasa con Philadelphia e avocado',
+            ingredients: [
+              { id: 'i16', name: 'Wasa', quantity: 40, unit: 'g' },
+              { id: 'i17', name: 'Philadelphia', quantity: 30, unit: 'g' },
+              { id: 'i18', name: 'Avocado', quantity: 40, unit: 'g' },
+            ],
+            prepTime: 5,
+          },
+        ],
+      },
+      {
+        id: 'mar-spu',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mar-spu',
+            name: 'Banana con mandorle',
+            ingredients: [
+              { id: 'i19', name: 'Banana', quantity: 150, unit: 'g' },
+              { id: 'i20', name: 'Mandorle', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'mar-pra',
+        type: 'pranzo',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mar-pra',
+            name: 'Riso basmati con ceci e verdure',
+            ingredients: [
+              { id: 'i21', name: 'Riso basmati', quantity: 80, unit: 'g' },
+              { id: 'i22', name: 'Ceci', quantity: 60, unit: 'g' },
+              { id: 'i23', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i24', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 25,
+          },
+        ],
+      },
+      {
+        id: 'mar-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mar-mer',
+            name: 'Frutta con Actimel bianco',
+            ingredients: [
+              { id: 'i25', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i26', name: 'Actimel bianco', quantity: 100, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'mar-cen',
+        type: 'cena',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mar-cen',
+            name: 'Frese con merluzzo e verdure',
+            ingredients: [
+              { id: 'i27', name: 'Frese', quantity: 35, unit: 'g' },
+              { id: 'i28', name: 'Merluzzo', quantity: 250, unit: 'g' },
+              { id: 'i29', name: 'Verdure', quantity: 250, unit: 'g' },
+              { id: 'i30', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 30,
+          },
+        ],
+      },
+    ],
+  },
+  // Mercoledì
+  {
+    id: '3',
+    date: '2026-01-07',
+    meals: [
+      {
+        id: 'mer-col',
+        type: 'colazione',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mer-col',
+            name: 'Wasa con uovo e avocado',
+            ingredients: [
+              { id: 'i31', name: 'Wasa', quantity: 40, unit: 'g' },
+              { id: 'i32', name: 'Uovo', quantity: 55, unit: 'g' },
+              { id: 'i33', name: 'Avocado', quantity: 40, unit: 'g' },
+            ],
+            prepTime: 10,
+          },
+        ],
+      },
+      {
+        id: 'mer-spu',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mer-spu',
+            name: 'Frutta con mandorle',
+            ingredients: [
+              { id: 'i34', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i35', name: 'Mandorle', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'mer-pra',
+        type: 'pranzo',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mer-pra',
+            name: 'Pasta integrale con tonno e verdure',
+            ingredients: [
+              { id: 'i36', name: 'Pasta integrale', quantity: 80, unit: 'g' },
+              { id: 'i37', name: 'Tonno', quantity: 120, unit: 'g' },
+              { id: 'i38', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i39', name: 'Olio EVO', quantity: 10, unit: 'g' },
             ],
             prepTime: 20,
           },
         ],
       },
       {
-        id: 'm3',
+        id: 'mer-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-mer-mer',
+            name: 'Frutta con mandorle',
+            ingredients: [
+              { id: 'i40', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i41', name: 'Mandorle', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'mer-cen',
         type: 'cena',
         confirmed: false,
         recipes: [
           {
-            id: 'r5',
-            name: 'Petto di pollo con verdure grigliate',
+            id: 'r-mer-cen',
+            name: 'Frese con pollo e verdure',
             ingredients: [
-              { id: 'i18', name: 'Petto di pollo', quantity: 150, unit: 'g' },
-              { id: 'i19', name: 'Zucchine', quantity: 150, unit: 'g' },
-              { id: 'i20', name: 'Peperoni', quantity: 100, unit: 'g' },
-              { id: 'i21', name: 'Olio EVO', quantity: 10, unit: 'ml' },
+              { id: 'i42', name: 'Frese', quantity: 35, unit: 'g' },
+              { id: 'i43', name: 'Pollo', quantity: 200, unit: 'g' },
+              { id: 'i44', name: 'Verdure', quantity: 250, unit: 'g' },
+              { id: 'i45', name: 'Olio EVO', quantity: 10, unit: 'g' },
             ],
             prepTime: 30,
           },
         ],
       },
+    ],
+  },
+  // Giovedì
+  {
+    id: '4',
+    date: '2026-01-08',
+    meals: [
       {
-        id: 'm4',
+        id: 'gio-col',
+        type: 'colazione',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-gio-col',
+            name: 'Wasa con Philadelphia e avocado',
+            ingredients: [
+              { id: 'i46', name: 'Wasa', quantity: 40, unit: 'g' },
+              { id: 'i47', name: 'Philadelphia', quantity: 30, unit: 'g' },
+              { id: 'i48', name: 'Avocado', quantity: 40, unit: 'g' },
+            ],
+            prepTime: 5,
+          },
+        ],
+      },
+      {
+        id: 'gio-spu',
         type: 'spuntino',
         confirmed: false,
         recipes: [
           {
-            id: 'r6',
-            name: 'Frutta secca mista',
+            id: 'r-gio-spu',
+            name: 'Wasa con cioccolato fondente',
             ingredients: [
-              { id: 'i22', name: 'Mandorle', quantity: 20, unit: 'g' },
-              { id: 'i23', name: 'Noci', quantity: 15, unit: 'g' },
+              { id: 'i49', name: 'Wasa', quantity: 20, unit: 'g' },
+              { id: 'i50', name: 'Cioccolato fondente', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'gio-pra',
+        type: 'pranzo',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-gio-pra',
+            name: 'Riso basmati con ceci e verdure',
+            ingredients: [
+              { id: 'i51', name: 'Riso basmati', quantity: 80, unit: 'g' },
+              { id: 'i52', name: 'Ceci', quantity: 60, unit: 'g' },
+              { id: 'i53', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i54', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 25,
+          },
+        ],
+      },
+      {
+        id: 'gio-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-gio-mer',
+            name: 'Frutta con Actimel bianco',
+            ingredients: [
+              { id: 'i55', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i56', name: 'Actimel bianco', quantity: 100, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'gio-cen',
+        type: 'cena',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-gio-cen',
+            name: 'Frese con uova e verdure',
+            ingredients: [
+              { id: 'i57', name: 'Frese', quantity: 30, unit: 'g' },
+              { id: 'i58', name: 'Uova', quantity: 110, unit: 'g' },
+              { id: 'i59', name: 'Verdure', quantity: 250, unit: 'g' },
+              { id: 'i60', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 20,
+          },
+        ],
+      },
+    ],
+  },
+  // Venerdì
+  {
+    id: '5',
+    date: '2026-01-09',
+    meals: [
+      {
+        id: 'ven-col',
+        type: 'colazione',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-ven-col',
+            name: 'Wasa con uovo e avocado',
+            ingredients: [
+              { id: 'i61', name: 'Wasa', quantity: 40, unit: 'g' },
+              { id: 'i62', name: 'Uovo', quantity: 55, unit: 'g' },
+              { id: 'i63', name: 'Avocado', quantity: 40, unit: 'g' },
+            ],
+            prepTime: 10,
+          },
+        ],
+      },
+      {
+        id: 'ven-spu',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-ven-spu',
+            name: 'Frutta con mandorle',
+            ingredients: [
+              { id: 'i64', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i65', name: 'Mandorle', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'ven-pra',
+        type: 'pranzo',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-ven-pra',
+            name: 'Pasta integrale con tonno e verdure',
+            ingredients: [
+              { id: 'i66', name: 'Pasta integrale', quantity: 80, unit: 'g' },
+              { id: 'i67', name: 'Tonno', quantity: 120, unit: 'g' },
+              { id: 'i68', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i69', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 20,
+          },
+        ],
+      },
+      {
+        id: 'ven-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-ven-mer',
+            name: 'Frutta con yogurt bianco magro',
+            ingredients: [
+              { id: 'i70', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i71', name: 'Yogurt bianco magro', quantity: 125, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'ven-cen',
+        type: 'cena',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-ven-cen',
+            name: 'Frese con merluzzo e verdure',
+            ingredients: [
+              { id: 'i72', name: 'Frese', quantity: 35, unit: 'g' },
+              { id: 'i73', name: 'Merluzzo', quantity: 250, unit: 'g' },
+              { id: 'i74', name: 'Verdure', quantity: 250, unit: 'g' },
+              { id: 'i75', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 30,
+          },
+        ],
+      },
+    ],
+  },
+  // Sabato
+  {
+    id: '6',
+    date: '2026-01-10',
+    meals: [
+      {
+        id: 'sab-col',
+        type: 'colazione',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-sab-col',
+            name: 'Frese con tacchino e frutta secca',
+            ingredients: [
+              { id: 'i76', name: 'Frese', quantity: 25, unit: 'g' },
+              { id: 'i77', name: 'Tacchino', quantity: 50, unit: 'g' },
+              { id: 'i78', name: 'Frutta secca', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 5,
+          },
+        ],
+      },
+      {
+        id: 'sab-spu',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-sab-spu',
+            name: 'Frutta con cioccolato fondente',
+            ingredients: [
+              { id: 'i79', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i80', name: 'Cioccolato fondente', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'sab-pra',
+        type: 'pranzo',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-sab-pra',
+            name: 'Riso basmati con tonno e verdure',
+            ingredients: [
+              { id: 'i81', name: 'Riso basmati', quantity: 80, unit: 'g' },
+              { id: 'i82', name: 'Tonno', quantity: 120, unit: 'g' },
+              { id: 'i83', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i84', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 25,
+          },
+        ],
+      },
+      {
+        id: 'sab-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-sab-mer',
+            name: 'Frutta con Actimel bianco',
+            ingredients: [
+              { id: 'i85', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i86', name: 'Actimel bianco', quantity: 100, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'sab-cen',
+        type: 'cena',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-sab-cen',
+            name: 'Pizza 🍕',
+            ingredients: [
+              { id: 'i87', name: 'Pizza', quantity: 400, unit: 'g' },
             ],
             prepTime: 0,
           },
@@ -100,79 +550,93 @@ export const sampleWeekPlan: DayPlan[] = [
       },
     ],
   },
+  // Domenica
   {
-    id: '2',
-    date: '2026-01-06',
+    id: '7',
+    date: '2026-01-11',
     meals: [
       {
-        id: 'm5',
+        id: 'dom-col',
         type: 'colazione',
         confirmed: false,
         recipes: [
           {
-            id: 'r7',
-            name: 'Toast integrale con avocado',
+            id: 'r-dom-col',
+            name: 'Pane integrale con avocado e yogurt',
             ingredients: [
-              { id: 'i24', name: 'Pane integrale', quantity: 60, unit: 'g' },
-              { id: 'i25', name: 'Avocado', quantity: 80, unit: 'g' },
-              { id: 'i26', name: 'Uova', quantity: 2, unit: 'pz' },
-              { id: 'i27', name: 'Semi di sesamo', quantity: 5, unit: 'g' },
+              { id: 'i88', name: 'Pane integrale', quantity: 40, unit: 'g' },
+              { id: 'i89', name: 'Avocado', quantity: 40, unit: 'g' },
+              { id: 'i90', name: 'Yogurt bianco magro', quantity: 125, unit: 'g' },
             ],
-            prepTime: 15,
+            prepTime: 5,
           },
         ],
       },
       {
-        id: 'm6',
-        type: 'pranzo',
-        confirmed: false,
-        recipes: [
-          {
-            id: 'r8',
-            name: 'Pasta integrale al pesto',
-            ingredients: [
-              { id: 'i28', name: 'Pasta integrale', quantity: 80, unit: 'g' },
-              { id: 'i29', name: 'Pesto alla genovese', quantity: 30, unit: 'g' },
-              { id: 'i30', name: 'Parmigiano', quantity: 20, unit: 'g' },
-              { id: 'i31', name: 'Pinoli', quantity: 10, unit: 'g' },
-            ],
-            prepTime: 15,
-          },
-        ],
-      },
-      {
-        id: 'm7',
-        type: 'cena',
-        confirmed: false,
-        recipes: [
-          {
-            id: 'r9',
-            name: 'Filetto di merluzzo al forno',
-            ingredients: [
-              { id: 'i32', name: 'Merluzzo', quantity: 180, unit: 'g' },
-              { id: 'i33', name: 'Patate', quantity: 150, unit: 'g' },
-              { id: 'i34', name: 'Limone', quantity: 1, unit: 'pz' },
-              { id: 'i35', name: 'Prezzemolo', quantity: 5, unit: 'g' },
-            ],
-            prepTime: 35,
-          },
-        ],
-      },
-      {
-        id: 'm8',
+        id: 'dom-spu',
         type: 'spuntino',
         confirmed: false,
         recipes: [
           {
-            id: 'r10',
-            name: 'Smoothie verde',
+            id: 'r-dom-spu',
+            name: 'Frutta con yogurt bianco magro',
             ingredients: [
-              { id: 'i36', name: 'Spinaci', quantity: 50, unit: 'g' },
-              { id: 'i37', name: 'Mela', quantity: 1, unit: 'pz' },
-              { id: 'i38', name: 'Zenzero', quantity: 5, unit: 'g' },
-              { id: 'i39', name: 'Acqua', quantity: 150, unit: 'ml' },
+              { id: 'i91', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i92', name: 'Yogurt bianco magro', quantity: 125, unit: 'g' },
             ],
-            prepTime: 5,
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'dom-pra',
+        type: 'pranzo',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-dom-pra',
+            name: 'Riso basmati con uova e verdure',
+            ingredients: [
+              { id: 'i93', name: 'Riso basmati', quantity: 80, unit: 'g' },
+              { id: 'i94', name: 'Uova', quantity: 110, unit: 'g' },
+              { id: 'i95', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i96', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 25,
+          },
+        ],
+      },
+      {
+        id: 'dom-mer',
+        type: 'spuntino',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-dom-mer',
+            name: 'Frutta con mandorle',
+            ingredients: [
+              { id: 'i97', name: 'Frutta', quantity: 150, unit: 'g' },
+              { id: 'i98', name: 'Mandorle', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 2,
+          },
+        ],
+      },
+      {
+        id: 'dom-cen',
+        type: 'cena',
+        confirmed: false,
+        recipes: [
+          {
+            id: 'r-dom-cen',
+            name: 'Frese con pollo e verdure',
+            ingredients: [
+              { id: 'i99', name: 'Frese', quantity: 35, unit: 'g' },
+              { id: 'i100', name: 'Pollo', quantity: 200, unit: 'g' },
+              { id: 'i101', name: 'Verdure', quantity: 200, unit: 'g' },
+              { id: 'i102', name: 'Olio EVO', quantity: 10, unit: 'g' },
+            ],
+            prepTime: 30,
           },
         ],
       },
@@ -181,10 +645,14 @@ export const sampleWeekPlan: DayPlan[] = [
 ];
 
 export const sampleFridge: FridgeItem[] = [
-  { id: 'f1', name: 'Latte di mandorla', quantity: 500, unit: 'ml', category: 'latticini', expiryDate: '2026-01-10' },
-  { id: 'f2', name: 'Yogurt greco', quantity: 300, unit: 'g', category: 'latticini', expiryDate: '2026-01-08' },
-  { id: 'f3', name: 'Pomodorini', quantity: 200, unit: 'g', category: 'verdure', expiryDate: '2026-01-07' },
-  { id: 'f4', name: 'Petto di pollo', quantity: 300, unit: 'g', category: 'proteine', expiryDate: '2026-01-06' },
-  { id: 'f5', name: 'Mirtilli', quantity: 100, unit: 'g', category: 'frutta', expiryDate: '2026-01-05' },
-  { id: 'f6', name: 'Fiocchi d\'avena', quantity: 400, unit: 'g', category: 'altro' },
+  { id: 'f1', name: 'Wasa', quantity: 200, unit: 'g', category: 'altro' },
+  { id: 'f2', name: 'Philadelphia', quantity: 150, unit: 'g', category: 'latticini', expiryDate: '2026-01-15' },
+  { id: 'f3', name: 'Avocado', quantity: 3, unit: 'pz', category: 'verdure', expiryDate: '2026-01-08' },
+  { id: 'f4', name: 'Riso basmati', quantity: 500, unit: 'g', category: 'altro' },
+  { id: 'f5', name: 'Tonno in scatola', quantity: 240, unit: 'g', category: 'proteine' },
+  { id: 'f6', name: 'Uova', quantity: 6, unit: 'pz', category: 'proteine', expiryDate: '2026-01-12' },
+  { id: 'f7', name: 'Mandorle', quantity: 100, unit: 'g', category: 'altro' },
+  { id: 'f8', name: 'Frese', quantity: 200, unit: 'g', category: 'altro' },
+  { id: 'f9', name: 'Cioccolato fondente', quantity: 50, unit: 'g', category: 'altro' },
+  { id: 'f10', name: 'Olio EVO', quantity: 500, unit: 'ml', category: 'altro' },
 ];

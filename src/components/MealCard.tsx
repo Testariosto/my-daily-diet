@@ -14,16 +14,18 @@ interface MealCardProps {
 
 const mealTypeLabels: Record<Meal['type'], string> = {
   colazione: 'Colazione',
-  pranzo: 'Pranzo',
-  cena: 'Cena',
   spuntino: 'Spuntino',
+  pranzo: 'Pranzo',
+  merenda: 'Merenda',
+  cena: 'Cena',
 };
 
 const mealTypeIcons: Record<Meal['type'], string> = {
   colazione: '🌅',
+  spuntino: '🥜',
   pranzo: '☀️',
+  merenda: '🍎',
   cena: '🌙',
-  spuntino: '🍎',
 };
 
 export function MealCard({ meal, onConfirm, onSelectRecipe }: MealCardProps) {
