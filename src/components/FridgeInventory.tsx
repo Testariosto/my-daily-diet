@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Trash2, AlertTriangle, Refrigerator } from 'lucide-react';
+import { Plus, Trash2, AlertTriangle, Refrigerator, CalendarIcon } from 'lucide-react';
 import { format, parseISO, differenceInDays } from 'date-fns';
 import { it } from 'date-fns/locale';
 import { FridgeItem } from '@/types/diet';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
 interface FridgeInventoryProps {
@@ -39,6 +41,7 @@ export function FridgeInventory({
   onUpdateQuantity,
 }: FridgeInventoryProps) {
   const [showAddForm, setShowAddForm] = useState(false);
+  const [expiryDate, setExpiryDate] = useState<Date | undefined>(undefined);
   const [newItem, setNewItem] = useState({
     name: '',
     quantity: '',
@@ -53,8 +56,10 @@ export function FridgeInventory({
         quantity: parseFloat(newItem.quantity),
         unit: newItem.unit,
         category: newItem.category,
+        expiryDate: expiryDate ? format(expiryDate, 'yyyy-MM-dd') : undefined,
       });
       setNewItem({ name: '', quantity: '', unit: 'g', category: 'altro' });
+      setExpiryDate(undefined);
       setShowAddForm(false);
     }
   };
@@ -67,9 +72,9 @@ export function FridgeInventory({
     return acc;
   }, {} as Record<string, FridgeItem[]>);
 
-  const getExpiryStatus = (expiryDate?: string) => {
-    if (!expiryDate) return null;
-    const days = differenceInDays(parseISO(expiryDate), new Date());
+  const getExpiryStatus = (expiryDateStr?: string) => {
+    if (!expiryDateStr) return null;
+    const days = differenceInDays(parseISO(expiryDateStr), new Date());
     if (days < 0) return 'expired';
     if (days <= 2) return 'warning';
     return 'ok';
@@ -139,6 +144,33 @@ export function FridgeInventory({
                   <option value="pz">pz</option>
                 </select>
               </div>
+              
+              {/* Date Picker for Expiry Date */}
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !expiryDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {expiryDate ? format(expiryDate, "d MMMM yyyy", { locale: it }) : "Data di scadenza (opzionale)"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={expiryDate}
+                    onSelect={setExpiryDate}
+                    initialFocus
+                    className={cn("p-3 pointer-events-auto")}
+                    locale={it}
+                  />
+                </PopoverContent>
+              </Popover>
+
               <div className="flex flex-wrap gap-2">
                 {(Object.keys(categoryLabels) as FridgeItem['category'][]).map((cat) => (
                   <button
@@ -156,7 +188,10 @@ export function FridgeInventory({
                 ))}
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" className="flex-1" onClick={() => setShowAddForm(false)}>
+                <Button variant="outline" className="flex-1" onClick={() => {
+                  setShowAddForm(false);
+                  setExpiryDate(undefined);
+                }}>
                   Annulla
                 </Button>
                 <Button className="flex-1" onClick={handleAddItem}>

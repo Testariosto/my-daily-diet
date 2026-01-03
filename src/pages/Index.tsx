@@ -47,6 +47,14 @@ const Index = () => {
     setFridgeItems(prev => [...prev, newItem]);
   }, []);
 
+  const handleAddMultipleFridgeItems = useCallback((items: Omit<FridgeItem, 'id'>[]) => {
+    const newItems = items.map((item, index) => ({
+      ...item,
+      id: `f${Date.now()}-${index}`,
+    }));
+    setFridgeItems(prev => [...prev, ...newItems]);
+  }, []);
+
   const handleRemoveFridgeItem = useCallback((id: string) => {
     setFridgeItems(prev => prev.filter(item => item.id !== id));
   }, []);
@@ -111,7 +119,7 @@ const Index = () => {
                 <h2 className="text-2xl font-bold text-foreground">Lista della spesa</h2>
                 <p className="text-muted-foreground">Basata sui pasti confermati</p>
               </div>
-              <ShoppingList weekPlan={weekPlan} />
+              <ShoppingList weekPlan={weekPlan} onMoveToFridge={handleAddMultipleFridgeItems} />
             </motion.div>
           )}
 

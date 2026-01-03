@@ -1,15 +1,17 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ShoppingCart, Trash2 } from 'lucide-react';
-import { DayPlan, ShoppingItem } from '@/types/diet';
+import { Check, ShoppingCart, Trash2, Refrigerator } from 'lucide-react';
+import { DayPlan, ShoppingItem, FridgeItem } from '@/types/diet';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { toast } from '@/hooks/use-toast';
 
 interface ShoppingListProps {
   weekPlan: DayPlan[];
+  onMoveToFridge: (items: Omit<FridgeItem, 'id'>[]) => void;
 }
 
-export function ShoppingList({ weekPlan }: ShoppingListProps) {
+export function ShoppingList({ weekPlan, onMoveToFridge }: ShoppingListProps) {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
 
   const shoppingItems = useMemo(() => {
@@ -58,6 +60,25 @@ export function ShoppingList({ weekPlan }: ShoppingListProps) {
     setCheckedItems(new Set());
   };
 
+  const moveCheckedToFridge = () => {
+    const itemsToMove = shoppingItems.filter(item => checkedItems.has(item.id));
+    
+    const fridgeItems: Omit<FridgeItem, 'id'>[] = itemsToMove.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      unit: item.unit,
+      category: getCategoryAsFridgeCategory(item.category),
+    }));
+
+    onMoveToFridge(fridgeItems);
+    setCheckedItems(new Set());
+    
+    toast({
+      title: "Articoli aggiunti al frigo! 🎉",
+      description: `${itemsToMove.length} articoli spostati nel frigorifero`,
+    });
+  };
+
   const groupedItems = useMemo(() => {
     const groups: Record<string, ShoppingItem[]> = {};
     shoppingItems.forEach((item) => {
@@ -102,10 +123,16 @@ export function ShoppingList({ weekPlan }: ShoppingListProps) {
           </div>
         </div>
         {checkedCount > 0 && (
-          <Button variant="outline" size="sm" onClick={clearChecked}>
-            <Trash2 className="w-4 h-4 mr-1" />
-            Resetta
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={clearChecked}>
+              <Trash2 className="w-4 h-4 mr-1" />
+              Resetta
+            </Button>
+            <Button size="sm" onClick={moveCheckedToFridge}>
+              <Refrigerator className="w-4 h-4 mr-1" />
+              Sposta in frigo
+            </Button>
+          </div>
         )}
       </div>
 
@@ -130,7 +157,7 @@ export function ShoppingList({ weekPlan }: ShoppingListProps) {
                       className={cn(
                         "w-full flex items-center gap-3 p-3 rounded-lg transition-all text-left",
                         isChecked
-                          ? "bg-muted/50 text-muted-foreground"
+                          ? "bg-accent/50 border border-primary/30"
                           : "bg-card border border-border hover:border-primary/50"
                       )}
                     >
@@ -144,7 +171,7 @@ export function ShoppingList({ weekPlan }: ShoppingListProps) {
                       >
                         {isChecked && <Check className="w-3 h-3 text-primary-foreground" />}
                       </div>
-                      <span className={cn("flex-1", isChecked && "line-through")}>
+                      <span className={cn("flex-1", isChecked && "line-through text-muted-foreground")}>
                         {item.name}
                       </span>
                       <span className={cn(
@@ -161,23 +188,47 @@ export function ShoppingList({ weekPlan }: ShoppingListProps) {
           </div>
         ))}
       </div>
+
+      {checkedCount > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed bottom-24 left-4 right-4 max-w-lg mx-auto"
+        >
+          <Button 
+            className="w-full shadow-lg" 
+            size="lg"
+            onClick={moveCheckedToFridge}
+          >
+            <Refrigerator className="w-5 h-5 mr-2" />
+            Sposta {checkedCount} articoli in frigo
+          </Button>
+        </motion.div>
+      )}
     </div>
   );
 }
 
 function getCategoryForIngredient(name: string): string {
   const lower = name.toLowerCase();
-  if (['pollo', 'manzo', 'maiale', 'salmone', 'merluzzo', 'tonno', 'uova'].some(k => lower.includes(k))) {
+  if (['pollo', 'manzo', 'maiale', 'salmone', 'merluzzo', 'tonno', 'uova', 'tacchino'].some(k => lower.includes(k))) {
     return 'proteine';
   }
-  if (['latte', 'yogurt', 'formaggio', 'parmigiano', 'feta', 'mozzarella'].some(k => lower.includes(k))) {
+  if (['latte', 'yogurt', 'formaggio', 'parmigiano', 'feta', 'mozzarella', 'philadelphia', 'actimel'].some(k => lower.includes(k))) {
     return 'latticini';
   }
-  if (['mela', 'banana', 'mirtilli', 'fragole', 'limone', 'arancia', 'avocado'].some(k => lower.includes(k))) {
+  if (['mela', 'banana', 'mirtilli', 'fragole', 'limone', 'arancia', 'avocado', 'frutta'].some(k => lower.includes(k))) {
     return 'frutta';
   }
-  if (['pomodor', 'zucchin', 'peperon', 'spinaci', 'cetriolo', 'insalata', 'prezzemolo'].some(k => lower.includes(k))) {
+  if (['pomodor', 'zucchin', 'peperon', 'spinaci', 'cetriolo', 'insalata', 'prezzemolo', 'verdur'].some(k => lower.includes(k))) {
     return 'verdure';
+  }
+  return 'altro';
+}
+
+function getCategoryAsFridgeCategory(category: string): FridgeItem['category'] {
+  if (['proteine', 'latticini', 'frutta', 'verdure'].includes(category)) {
+    return category as FridgeItem['category'];
   }
   return 'altro';
 }
