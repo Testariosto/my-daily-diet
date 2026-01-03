@@ -1,7 +1,7 @@
 import { format, parseISO, isToday, isTomorrow, isYesterday } from 'date-fns';
 import { it } from 'date-fns/locale';
 import { motion } from 'framer-motion';
-import { DayPlan } from '@/types/diet';
+import { DayPlan, Ingredient } from '@/types/diet';
 import { MealCard } from './MealCard';
 import { cn } from '@/lib/utils';
 
@@ -9,6 +9,7 @@ interface DayViewProps {
   dayPlan: DayPlan;
   onConfirmMeal: (mealId: string, recipeId: string) => void;
   onSelectRecipe: (mealId: string, recipeId: string) => void;
+  onUpdateRecipe: (mealId: string, recipeId: string, updatedIngredients: Ingredient[]) => void;
 }
 
 function formatDayLabel(dateStr: string): string {
@@ -19,7 +20,7 @@ function formatDayLabel(dateStr: string): string {
   return format(date, 'EEEE', { locale: it });
 }
 
-export function DayView({ dayPlan, onConfirmMeal, onSelectRecipe }: DayViewProps) {
+export function DayView({ dayPlan, onConfirmMeal, onSelectRecipe, onUpdateRecipe }: DayViewProps) {
   const date = parseISO(dayPlan.date);
   const dayLabel = formatDayLabel(dayPlan.date);
   const confirmedCount = dayPlan.meals.filter(m => m.confirmed).length;
@@ -70,6 +71,7 @@ export function DayView({ dayPlan, onConfirmMeal, onSelectRecipe }: DayViewProps
               meal={meal}
               onConfirm={onConfirmMeal}
               onSelectRecipe={onSelectRecipe}
+              onUpdateRecipe={onUpdateRecipe}
             />
           </motion.div>
         ))}

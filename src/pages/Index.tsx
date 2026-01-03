@@ -1,13 +1,15 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Salad } from 'lucide-react';
-import { DayPlan, FridgeItem } from '@/types/diet';
+import { DayPlan, FridgeItem, Ingredient } from '@/types/diet';
 import { sampleWeekPlan, sampleFridge } from '@/data/sampleDiet';
 import { Navigation } from '@/components/Navigation';
 import { WeekSelector } from '@/components/WeekSelector';
 import { DayView } from '@/components/DayView';
 import { ShoppingList } from '@/components/ShoppingList';
 import { FridgeInventory } from '@/components/FridgeInventory';
+
+import { generateNextWeekPlan } from '@/utils/dietGenerator';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<'piano' | 'spesa' | 'frigo'>('piano');
@@ -38,6 +40,42 @@ const Index = () => {
       ),
     })));
   }, []);
+
+  const handleUpdateRecipe = useCallback((mealId: string, recipeId: string, updatedIngredients: Ingredient[]) => {
+    setWeekPlan(prev => prev.map(day => ({
+      ...day,
+      meals: day.meals.map(meal =>
+        meal.id === mealId
+          ? {
+              ...meal,
+              recipes: meal.recipes.map(recipe =>
+                recipe.id === recipeId
+                  ? { ...recipe, ingredients: updatedIngredients }
+                  : recipe
+              )
+            }
+          : meal
+      ),
+    })));
+  }, []);
+
+  const handleReplicateWeek = useCallback(() => {
+    const lastDay = weekPlan[weekPlan.length - 1];
+    const startDate = new Date(lastDay.date);
+    startDate.setDate(startDate.getDate() + 1);
+    
+    // We base the new week on the structure of the last 7 days
+    const templateWeek = weekPlan.slice(-7);
+    
+    const newDays = generateNextWeekPlan(templateWeek, startDate);
+    
+    setWeekPlan(prev => [...prev, ...newDays]);
+    
+    // Optional: Switch view to the first day of new week
+    if (newDays.length > 0) {
+        setSelectedDate(newDays[0].date);
+    }
+  }, [weekPlan]);
 
   const handleAddFridgeItem = useCallback((item: Omit<FridgeItem, 'id'>) => {
     const newItem: FridgeItem = {
@@ -98,11 +136,22 @@ const Index = () => {
                 selectedDate={selectedDate}
                 onSelectDate={setSelectedDate}
               />
+              
+              <div className="flex justify-center">
+                 <button
+                    onClick={handleReplicateWeek}
+                    className="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                 >
+                    + Aggiungi settimana successiva
+                 </button>
+              </div>
+
               {selectedDay && (
                 <DayView
                   dayPlan={selectedDay}
                   onConfirmMeal={handleConfirmMeal}
                   onSelectRecipe={handleSelectRecipe}
+                  onUpdateRecipe={handleUpdateRecipe}
                 />
               )}
             </motion.div>
