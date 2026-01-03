@@ -168,7 +168,11 @@ const Index = () => {
                 <h2 className="text-2xl font-bold text-foreground">Lista della spesa</h2>
                 <p className="text-muted-foreground">Basata sui pasti confermati</p>
               </div>
-              <ShoppingList weekPlan={weekPlan} onMoveToFridge={handleAddMultipleFridgeItems} />
+              <ShoppingList 
+                weekPlan={weekPlan} 
+                fridgeItems={fridgeItems}
+                onMoveToFridge={handleAddMultipleFridgeItems} 
+              />
             </motion.div>
           )}
 

@@ -8,29 +8,35 @@ import { toast } from '@/hooks/use-toast';
 
 interface ShoppingListProps {
   weekPlan: DayPlan[];
+  fridgeItems: FridgeItem[];
   onMoveToFridge: (items: Omit<FridgeItem, 'id'>[]) => void;
 }
 
-export function ShoppingList({ weekPlan, onMoveToFridge }: ShoppingListProps) {
+export function ShoppingList({ weekPlan, fridgeItems, onMoveToFridge }: ShoppingListProps) {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
 
   const shoppingItems = useMemo(() => {
     const itemsMap = new Map<string, ShoppingItem>();
 
+    // 1. Calculate required items from meals
     weekPlan.forEach((day) => {
       day.meals
         .filter((meal) => meal.confirmed)
         .forEach((meal) => {
           const recipe = meal.recipes.find(r => r.id === meal.selectedRecipeId) || meal.recipes[0];
           recipe.ingredients.forEach((ing) => {
-            const key = `${ing.name}-${ing.unit}`;
+            // Use a key that combines name and unit to avoid merging incompatible units for now
+            // Normalize name to lowercase for aggregation to avoid "Pasta" vs "pasta" issues
+            const normalizedName = ing.name.trim();
+            const key = `${normalizedName.toLowerCase()}-${ing.unit}`;
+            
             const existing = itemsMap.get(key);
             if (existing) {
               existing.quantity += ing.quantity;
             } else {
               itemsMap.set(key, {
                 id: key,
-                name: ing.name,
+                name: normalizedName, // Keep original casing of first occurrence
                 quantity: ing.quantity,
                 unit: ing.unit,
                 checked: false,
@@ -41,8 +47,34 @@ export function ShoppingList({ weekPlan, onMoveToFridge }: ShoppingListProps) {
         });
     });
 
-    return Array.from(itemsMap.values()).sort((a, b) => a.category.localeCompare(b.category));
-  }, [weekPlan]);
+    let initialList = Array.from(itemsMap.values());
+
+    // 2. Subtract fridge inventory
+    return initialList.map(item => {
+        // Find matching item in fridge (case insensitive)
+        // We also check for unit match. If units differ, we skip for safety (future improvement: conversions)
+        const fridgeItem = fridgeItems.find(f => 
+            f.name.toLowerCase() === item.name.toLowerCase() && 
+            f.unit === item.unit
+        );
+
+        if (fridgeItem) {
+            const needed = item.quantity;
+            const available = fridgeItem.quantity;
+            const remainingNeeded = needed - available;
+
+            if (remainingNeeded <= 0) {
+                return null; // Fully covered by fridge
+            }
+
+            return { ...item, quantity: remainingNeeded };
+        }
+
+        return item;
+    })
+    .filter((item): item is ShoppingItem => item !== null)
+    .sort((a, b) => a.category.localeCompare(b.category));
+  }, [weekPlan, fridgeItems]);
 
   const toggleItem = (itemId: string) => {
     setCheckedItems((prev) => {
