@@ -17,7 +17,7 @@ export interface Recipe {
 
 export interface Meal {
   id: string;
-  type: 'colazione' | 'pranzo' | 'cena' | 'spuntino';
+  type: 'colazione' | 'pranzo' | 'cena' | 'spuntino' | 'merenda';
   recipes: Recipe[];
   selectedRecipeId?: string;
   confirmed: boolean;
